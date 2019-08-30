@@ -18,10 +18,10 @@ namespace cs225
 	  HSLAPixel();
 	  HSLAPixel(double hue, double saturation, double luminance);
 	  HSLAPixel(double hue,	double saturation, double luminance, double alpha);
-	  double h = 0;
-	  double s = 0;
-	  double l = 0;
-	  double a = 0;
+	  double h;
+	  double s;
+	  double l;
+	  double a;
 	
 
 	private:
