@@ -69,8 +69,16 @@ PNG createSpotlight(PNG image, int centerX, int centerY)
       HSLAPixel & pixel = image.getPixel(x, y);
       double distanceX = x - centerX;
       double distanceY = y - centerY;
-      double luminance = sqrt(pow(distanceX,2) + pow(distanceY,2)) / 200;
-      pixel.l = pixel.l * (1 - luminance);
+      double distance = sqrt(pow(distanceX,2) + pow(distanceY,2));
+      if(distance >= 160)
+	{
+	  pixel.l = pixel.l * .2;
+	}
+      else
+	{
+	  pixel.l = pixel.l * (distance/200); //200 b/c .5% per pixel 
+	}
+
     }
   }
 
@@ -96,13 +104,13 @@ PNG illinify(PNG image)
     for (unsigned y = 0; y < image.height(); y++)
     {
       HSLAPixel & pixel = image.getPixel(x, y);
-      if(pixel.h >= 103.5 && pixel.h <= 329.5)
+      if(pixel.h >= 293.5 && pixel.h <= 113.5)
       {
-        pixel.h = 216;
+        pixel.h = 11;
       }
       else
       {
-        pixel.h = 11;
+        pixel.h = 216;
       }
 
 
