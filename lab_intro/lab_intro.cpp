@@ -69,7 +69,7 @@ PNG createSpotlight(PNG image, int centerX, int centerY)
       HSLAPixel & pixel = image.getPixel(x, y);
       double distanceX = x - centerX;
       double distanceY = y - centerY;
-      double luminance = sqrt(distanceX^2 + distanceY^2) / 200;
+      double luminance = sqrt(pow(distanceX,2) + pow(distanceY,2)) / 200;
       pixel.l = pixel.l * (1 - luminance);
     }
   }
@@ -96,13 +96,13 @@ PNG illinify(PNG image)
     for (unsigned y = 0; y < image.height(); y++)
     {
       HSLAPixel & pixel = image.getPixel(x, y);
-      if(pixel.h => 103.5 && pixel.h <= 329.5)
+      if(pixel.h >= 103.5 && pixel.h <= 329.5)
       {
         pixel.h = 216;
       }
       else
       {
-        pixel.h = 11
+        pixel.h = 11;
       }
 
 
@@ -126,13 +126,7 @@ PNG illinify(PNG image)
 */
 PNG watermark(PNG firstImage, PNG secondImage)
 {
-for (unsigned x = 0; x < image.width(); x++) {
-    for (unsigned y = 0; y < image.height(); y++)
-    {
-      HSLAPixel & pixel = image.getPixel(x, y);
 
-    }
- }
 
   return firstImage;
 }
