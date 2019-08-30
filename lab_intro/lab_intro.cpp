@@ -139,9 +139,9 @@ PNG watermark(PNG firstImage, PNG secondImage)
       {
 	HSLAPixel & pixelFirstImage = firstImage.getPixel(x, y);
 	HSLAPixel & pixelSecondImage = secondImage.getPixel(x, y);
-	if(pixelFirstImage.l == 1)
+	if(pixelSecondImage.l  == 1)
 	  {
-	    pixelSecondImage.l += .2;
+	    pixelFirstImage.l += .2;
 	  }
       }
     }
