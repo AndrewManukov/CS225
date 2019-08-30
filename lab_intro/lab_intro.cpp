@@ -104,13 +104,13 @@ PNG illinify(PNG image)
     {
       HSLAPixel & pixel = image.getPixel(x, y);
       if(pixel.h >= 113.5 && pixel.h <= 293.5)
-      {
-        pixel.h = 216;
-      }
+	{
+	  pixel.h = 216;
+	}
       else
-      {
-        pixel.h = 11;
-      }
+	{
+	  pixel.h = 11;
+	}
 
 
     }
@@ -133,7 +133,17 @@ PNG illinify(PNG image)
 */
 PNG watermark(PNG firstImage, PNG secondImage)
 {
-
-
+    for (unsigned x = 0; x < firstImage.width(); x++)
+    {  
+      for (unsigned y = 0; y < firstImage.height(); y++)
+      {
+	HSLAPixel & pixelFirstImage = firstImage.getPixel(x, y);
+	HSLAPixel & pixelSecondImage = secondImage.getPixel(x, y);
+	if(pixelFirstImage.l == 1)
+	  {
+	    pixelSecondImage.l += .2;
+	  }
+      }
+    }
   return firstImage;
 }
