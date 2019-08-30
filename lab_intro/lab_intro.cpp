@@ -51,7 +51,7 @@ PNG grayscale(PNG image) {
  * is a total of `sqrt((3 * 3) + (4 * 4)) = sqrt(25) = 5` pixels away and
  * its luminance is decreased by 2.5% (0.975x its original value).  At a
  * distance over 160 pixels away, the luminance will always decreased by 80%.
- * 
+ *
  * The modified PNG is then returned.
  *
  * @param image A PNG object which holds the image data to be modified.
@@ -60,20 +60,24 @@ PNG grayscale(PNG image) {
  *
  * @return The image with a spotlight.
  */
-PNG createSpotlight(PNG image, int centerX, int centerY) {
-for (unsigned x = 0; x < image.width(); x++) {
-    for (unsigned y = 0; y < image.height(); y++) 
+PNG createSpotlight(PNG image, int centerX, int centerY)
+{
+  for (unsigned x = 0; x < image.width(); x++)
+  {
+    for (unsigned y = 0; y < image.height(); y++)
     {
       HSLAPixel & pixel = image.getPixel(x, y);
-
-      
+      double distanceX = x - centerX;
+      double distanceY = y - centerY;
+      double luminance = sqrt(distanceX^2 + distanceY^2) / 200;
+      pixel.l = pixel.l * (1 - luminance);
     }
- }
+  }
 
   return image;
-  
+
 }
- 
+
 
 /**
  * Returns a image transformed to Illini colors.
@@ -85,16 +89,28 @@ for (unsigned x = 0; x < image.width(); x++) {
  *
  * @return The illinify'd image.
 **/
-PNG illinify(PNG image) {
-for (unsigned x = 0; x < image.width(); x++) {
-    for (unsigned y = 0; y < image.height(); y++) {
+PNG illinify(PNG image)
+{
+  for (unsigned x = 0; x < image.width(); x++)
+  {
+    for (unsigned y = 0; y < image.height(); y++)
+    {
       HSLAPixel & pixel = image.getPixel(x, y);
+      if(pixel.h => 103.5 && pixel.h <= 329.5)
+      {
+        pixel.h = 216;
+      }
+      else
+      {
+        pixel.h = 11
+      }
 
-  
 
+    }
+  }
   return image;
 }
- 
+
 
 /**
 * Returns an immge that has been watermarked by another image.
@@ -108,12 +124,12 @@ for (unsigned x = 0; x < image.width(); x++) {
 *
 * @return The watermarked image.
 */
-PNG watermark(PNG firstImage, PNG secondImage) {
+PNG watermark(PNG firstImage, PNG secondImage)
+{
 for (unsigned x = 0; x < image.width(); x++) {
     for (unsigned y = 0; y < image.height(); y++)
     {
       HSLAPixel & pixel = image.getPixel(x, y);
-      if(pixel.h 
 
     }
  }
