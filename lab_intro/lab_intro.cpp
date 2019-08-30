@@ -104,7 +104,7 @@ PNG illinify(PNG image)
     for (unsigned y = 0; y < image.height(); y++)
     {
       HSLAPixel & pixel = image.getPixel(x, y);
-      if(pixel.h >= 293.5 && pixel.h <= 113.5)
+      if(pixel.h > 243 && pixel.h <  114)
       {
         pixel.h = 11;
       }
