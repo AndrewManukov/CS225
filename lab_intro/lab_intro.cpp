@@ -67,8 +67,8 @@ PNG createSpotlight(PNG image, int centerX, int centerY)
     for (unsigned y = 0; y < image.height(); y++)
     {
       HSLAPixel & pixel = image.getPixel(x, y);
-      double distanceX = x - centerX;
-      double distanceY = y - centerY;
+      double distanceX = (x - centerX) * 1.0; 
+      double distanceY = (y - centerY) * 1.0;
       double distance = sqrt(pow(distanceX,2) + pow(distanceY,2));
       if(distance >= 160)
 	{
@@ -76,7 +76,7 @@ PNG createSpotlight(PNG image, int centerX, int centerY)
 	}
       else
 	{
-	  pixel.l = pixel.l * (distance/200); //200 b/c .5% per pixel 
+	  pixel.l = pixel.l * (1 - (distance/200)); //200 b/c .5% per pixel 
 	}
 
     }
