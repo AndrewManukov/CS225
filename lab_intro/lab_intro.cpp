@@ -72,11 +72,11 @@ PNG createSpotlight(PNG image, int centerX, int centerY)
       double distance = hypot((x - centerX),(y - centerY));
       if(distance <= 160)
 	{
-	  pixel.l = pixel.l * (1 - (distance/200));
+	  pixel.l *= (1 - (distance/200));
 	}
       else
 	{
-	  pixel.l = pixel.l * .2; 
+	  pixel.l *= .2; 
 	}
 
     }
