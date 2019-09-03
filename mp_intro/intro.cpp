@@ -4,8 +4,17 @@
 #include <string>
 
 
-void rotate(std::string inputFile, std::string outputFile) {
-  // TODO: Part 2
+void rotate(std::string inputFile, std::string outputFile)
+{
+  for (unsigned x = 0; x < inputFile.width(); x++)
+  {
+    for (unsigned y = 0; y < inputFile.height(); y++)
+    {
+      outputFile(x,y) = inputFile(inputFile.width() - x, inputFile.height() - y);
+    }
+  }
+
+  return firstImage;
 }
 
 cs225::PNG myArt(unsigned int width, unsigned int height) {
