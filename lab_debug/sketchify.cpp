@@ -29,40 +29,43 @@ PNG* setupOutput(unsigned w, unsigned h) {
  * @return a pointer to the color to use when sketchifying
  */
 HSLAPixel* myFavoriteColor() {
-    HSLAPixel p(-1, 0.8, 0.5);
+    HSLAPixel p(94, 0.8, 0.5);
     return &p;
 }
 
 void sketchify(std::string inputFile, std::string outputFile) {
     // Load in.png
-    PNG* original = NULL;
-
-    original->readFromFile(inputFile);
-    unsigned width = original->width();
-    unsigned height = original->height();
-
+    PNG* original = new PNG();
+    original->readFromFile(inputFile); //seg fault somewhere here
+    unsigned width = original->width(); //this bad
+    unsigned height = original->height(); //this bad
     // Create out.png
     PNG* output;
     setupOutput(width, height);
 
     // Load our favorite color to color the outline
     HSLAPixel* myPixel = myFavoriteColor();
-
+    std::cout << "Reached line " << __LINE__ << std::endl;
     // Go over the whole image, and if a pixel differs from that to its upper
     // left, color it my favorite color in the output
     for (unsigned y = 1; 0 < y < height; y++) {
         for (unsigned x = 1; 0 < x < width; x++) {
             // Calculate the pixel difference
+            std::cout << "Reached line " << __LINE__ << std::endl;
             HSLAPixel& prev = original->getPixel(x - 1, y - 1);
             HSLAPixel& curr = original->getPixel(x, y);
             double diff = std::fabs(curr.h - prev.h);
+            std::cout << "Reached line " << __LINE__ << std::endl;
 
             // If the pixel is an edge pixel,
             // color the output pixel with my favorite color
-            HSLAPixel currOutPixel = (*output).getPixel(x, y);
+            std::cout << "Reached line " << __LINE__ << std::endl;
+            HSLAPixel currOutPixel = (*output).getPixel(x, y); //seg fault here what does output* do
+            std::cout << "Reached line " << __LINE__ << std::endl;
             if (diff > 20) {
                 currOutPixel = *myPixel;
             }
+            std::cout << "Reached line " << __LINE__ << std::endl;
         }
     }
 
