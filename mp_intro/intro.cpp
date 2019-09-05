@@ -10,12 +10,15 @@ void rotate(std::string inputFile, std::string outputFile)
   PNG image1;
   image1.readFromFile(inputFile);
   PNG image2(image1.width(), image1.height());
+  unsigned int image1Width = image1.width();
+  unsigned int image1Height = image1.height();
+
   for(unsigned int x = 0; x < image1.width(); x++)
   {
     for(unsigned int y = 0; y < image1.height(); y++)
     {
       HSLAPixel & image1pixel = image1.getPixel(x, y);
-      HSLAPixel & image2pixel = image2.getPixel(image1.width() - 1 - x, image1.width() - 1 - y);
+      HSLAPixel & image2pixel = image2.getPixel((image1Width - 1) - x, (image1Height - 1) - y);
       image2pixel = image1pixel;
     }
   }
