@@ -45,25 +45,22 @@ void sketchify(std::string inputFile, std::string outputFile) {
 
     // Load our favorite color to color the outline
     HSLAPixel* myPixel = myFavoriteColor();
-    std::cout << "Reached line " << __LINE__ << std::endl;
     // Go over the whole image, and if a pixel differs from that to its upper
     // left, color it my favorite color in the output
     for (unsigned y = 1; 0 < y < height; y++) {
         for (unsigned x = 1; 0 < x < width; x++) {
             // Calculate the pixel difference
-            std::cout << "Reached line " << __LINE__ << std::endl;
             HSLAPixel& prev = original->getPixel(x - 1, y - 1);
             HSLAPixel& curr = original->getPixel(x, y);
             double diff = std::fabs(curr.h - prev.h);
-            std::cout << "Reached line " << __LINE__ << std::endl;
 
             // If the pixel is an edge pixel,
             // color the output pixel with my favorite color
+            HSLAPixel& currOutPixel = output->getPixel(x, y); //seg fault here what does output* do
             std::cout << "Reached line " << __LINE__ << std::endl;
-            HSLAPixel currOutPixel = (*output).getPixel(x, y); //seg fault here what does output* do
+            if (diff > 20)  {
+                currOutPixel = *myPixel; //segfault here
             std::cout << "Reached line " << __LINE__ << std::endl;
-            if (diff > 20) {
-                currOutPixel = *myPixel;
             }
             std::cout << "Reached line " << __LINE__ << std::endl;
         }
