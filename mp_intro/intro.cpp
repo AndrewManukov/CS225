@@ -29,16 +29,32 @@ void rotate(std::string inputFile, std::string outputFile)
 
 cs225::PNG myArt(unsigned int width, unsigned int height)
 {
-  int i = 1;
-  cs225::PNG png(width, height);
-  for(unsigned int x = 0; x < png.width() / 5; x++)
+  PNG image(width, height);
+  int i = 3;
+  for(unsigned int x = 0; x < width; x++)
   {
-    for(unsigned int y = 0; y < png.height(); y++)
+    for(unsigned int y = 0; y < height; y++)
     {
-
+      i++;
+      HSLAPixel & pixel = image.getPixel(x, y);
+      pixel.h = i * x;
+      pixel.s = .85;
+      pixel.l = .5;
+      pixel.a = 1;
     }
+
+
   }
-
-
-  return png;
+  return image;
 }
+  /*int i = 1;
+  cs225::PNG png(width, height);
+  unsigned width = png.width();
+  unsigned height = png.height();
+  for(unsigned int x = 0; x < width / 2; x++)
+  {
+    for(unsigned int y = 0; y < height / 4; y++)
+    {
+      HSLAPixel pixel =
+    }
+  }*/
