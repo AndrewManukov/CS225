@@ -1,7 +1,7 @@
 #include "cs225/PNG.h"
 #include "cs225/HSLAPixel.h"
 #include <string>
-#include <ctime>
+#include <cmath>
 
 using namespace cs225;
 
@@ -42,16 +42,15 @@ cs225::PNG myArt(unsigned int width, unsigned int height)
   {
     for(unsigned int y = 0; y < height; y++)
     {
-      i++;
       HSLAPixel & pixel = image.getPixel(x, y);
-      pixel.h = i * x;
+      pixel.h = i * x * 150 % 320;
       pixel.s = .85;
       pixel.l = .5;
       pixel.a = 1;
+      i++;
     }
-
-
   }
+
   return image;
 }
   /*int i = 1;
