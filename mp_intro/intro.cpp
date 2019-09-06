@@ -5,25 +5,32 @@
 
 using namespace cs225;
 
+
+
 void rotate(std::string inputFile, std::string outputFile)
 {
-  PNG image1;
-  image1.readFromFile(inputFile);
-  PNG image2(image1.width(), image1.height());
-  unsigned int image1Width = image1.width();
-  unsigned int image1Height = image1.height();
+  PNG* image1 = new PNG();
+//  PNG* image2 = new PNG(image1->width(), image1->height());
+  image1->readFromFile(inputFile);
+  unsigned image1Width = image1->width();
+  unsigned image1Height = image1->height();
 
-  for(unsigned int x = 0; x < image1.width(); x++)
+  PNG* image2 = new PNG(image1Width , image1Height);
+  for(unsigned x = 0; x < image1Width; x++)
   {
-    for(unsigned int y = 0; y < image1.height(); y++)
+    for(unsigned y = 0; y < image1Height; y++)
     {
-      HSLAPixel & image1pixel = image1.getPixel(x, y);
-      HSLAPixel & image2pixel = image2.getPixel((image1Width - 1) - x, (image1Height - 1) - y);
-      image2pixel = image1pixel;
+      HSLAPixel & image1Pixel = image1->getPixel(x, y);
+      HSLAPixel & image2Pixel = image2->getPixel((image1Width - 1) - x, (image1Height - 1) - y);
+      image2Pixel = image1Pixel;
+
     }
   }
 
-  image2.writeToFile(outputFile);
+  image2->writeToFile(outputFile);
+
+  delete image1;
+  delete image2;
 
 }
 
