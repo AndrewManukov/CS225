@@ -68,10 +68,9 @@ void Room::clear()
 
 void Room::copy(const Room& other)
 {
+    letters = new Letter[max_letters];
     name = other.name;
     capacity = other.capacity;
     count = other.count;
     letterCount = other.letterCount;
-    letters = other.letters;
-
 }

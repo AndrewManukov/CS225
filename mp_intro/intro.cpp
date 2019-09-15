@@ -2,7 +2,7 @@
 #include "cs225/HSLAPixel.h"
 #include <string>
 #include <cmath>
-
+ 
 using namespace cs225;
 
 

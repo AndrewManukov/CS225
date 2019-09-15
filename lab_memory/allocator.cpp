@@ -44,14 +44,15 @@ void Allocator::loadRooms(const std::string& file)
 {
     // Read in rooms
     fileio::loadRooms(file);
+    roomCount = fileio::getNumRooms();
     rooms = new Room[roomCount];
 
     totalCapacity = 0;
     int i = 0;
     while (fileio::areMoreRooms()) {
-        i++; 
         rooms[i] = fileio::nextRoom();
         totalCapacity += rooms[i].capacity;
+        i++;
     }
 }
 
@@ -66,6 +67,7 @@ void Allocator::printStudents(std::ostream & stream /* = std::cout */)
 
 void Allocator::allocate()
 {
+
     // Perform the allocation
     int border = solve();
 
@@ -117,4 +119,18 @@ Room* Allocator::largestOpening()
         }
     }
     return &rooms[index];
+}
+
+Allocator::~Allocator()
+{
+  if(alpha != NULL)
+  {
+    delete[] alpha;
+    alpha = NULL;
+  }
+  if(rooms != NULL)
+  {
+    delete[] rooms;
+    rooms = NULL;
+  }
 }
