@@ -1,0 +1,203 @@
+#include "Image.h"
+
+namespace cs225
+{
+  void Image::lighten()
+  {
+    for(unsigned int x = 0; x < this->width(); x++)
+    {
+      for(unsigned int y = 0; x < this->height(); y++)
+      {
+        HSLAPixel & pixel = this->getPixel(x,y);
+        if(pixel.l + 0.1 <= 1)
+        {
+          pixel.l += 0.1;
+        }
+        else
+        {
+          pixel.l = 1;
+        }
+      }
+    }
+  }
+  void Image::lighten(double amount)
+  {
+    for(unsigned int x = 0; x < this->width(); x++)
+    {
+      for(unsigned int y = 0; x < this->height(); y++)
+      {
+        HSLAPixel & pixel = this->getPixel(x,y);
+        if(pixel.l + amount <= 1)
+        {
+          pixel.l += amount;
+        }
+        else
+        {
+          pixel.l = 1;
+        }
+      }
+    }
+  }
+
+  void Image::darken()
+  {
+    for(unsigned int x = 0; x < this->width(); x++)
+    {
+      for(unsigned int y = 0; x < this->height(); y++)
+      {
+        HSLAPixel & pixel = this->getPixel(x,y);
+        if(pixel.l - 0.1 >= 0)
+        {
+          pixel.l -= 0.1;
+        }
+        else
+        {
+          pixel.l = 0;
+        }
+      }
+    }
+  }
+
+  void Image::darken(double amount)
+  {
+    for(unsigned int x = 0; x < this->width(); x++)
+    {
+      for(unsigned int y = 0; x < this->height(); y++)
+      {
+        HSLAPixel & pixel = this->getPixel(x,y);
+        if(pixel.l - amount >= 0)
+        {
+          pixel.l -= amount;
+        }
+        else
+        {
+          pixel.l = 0;
+        }
+      }
+    }
+  }
+
+  void Image::saturate()
+  {
+    for(unsigned int x = 0; x < this->width(); x++)
+    {
+      for(unsigned int y = 0; x < this->height(); y++)
+      {
+        HSLAPixel & pixel = this->getPixel(x,y);
+        if(pixel.s + 0.1 <= 1)
+        {
+          pixel.s += 0.1;
+        }
+        else
+        {
+          pixel.l = 1;
+        }
+      }
+    }
+  }
+
+  void Image::saturate(double amount)
+  {
+    for(unsigned int x = 0; x < this->width(); x++)
+    {
+      for(unsigned int y = 0; x < this->height(); y++)
+      {
+        HSLAPixel & pixel = this->getPixel(x,y);
+        if(pixel.s + amount <= 1)
+        {
+          pixel.s += amount;
+        }
+        else
+        {
+          pixel.l = 1;
+        }
+      }
+    }
+  }
+
+  void Image::desaturate()
+  {
+    for(unsigned int x = 0; x < this->width(); x++)
+    {
+      for(unsigned int y = 0; x < this->height(); y++)
+      {
+        HSLAPixel & pixel = this->getPixel(x,y);
+        if(pixel.s - 0.1 >= 0)
+        {
+          pixel.s -= 0.1;
+        }
+        else
+        {
+          pixel.l = 0;
+        }
+      }
+    }
+  }
+
+  /*void Image::desaturate(amount double)
+  {
+    for(unsigned int x = 0; x < this->width(); x++)
+    {
+      for(unsigned int y = 0; x < this->height(); y++)
+      {
+        HSLAPixel & pixel = this->getPixel(x,y);
+        if(pixel.s - amount >= 0)
+        {
+          pixel.s -= amount;
+        }
+        else
+        {
+          pixel.l = 0;
+        }
+      }
+    }
+  } */
+
+  //TODO scale
+
+
+  void Image::grayscale()
+  {
+    for(unsigned int x = 0; x < this->width(); x++)
+    {
+      for(unsigned int y = 0; x < this->height(); y++)
+      {
+        HSLAPixel & pixel = this->getPixel(x,y);
+        pixel.s = 0;
+      }
+    }
+  }
+
+  void Image::rotateColor(double degrees)
+  {
+    for(unsigned int x = 0; x < this->width(); x++)
+    {
+      for(unsigned int y = 0; x < this->height(); y++)
+      {
+        HSLAPixel & pixel = this->getPixel(x,y);
+        pixel.h = (pixel.h + degrees);
+      }
+    }
+  }
+
+  void Image::illinify()
+  {
+    for(unsigned int x = 0; x < this->width(); x++)
+    {
+      for(unsigned int y = 0; x < this->height(); y++)
+      {
+        HSLAPixel & pixel = this->getPixel(x,y);
+        if(pixel.h >= 113.5 && pixel.h <= 293.5)
+        {
+          pixel.h = 216;
+        }
+        else
+        {
+          pixel.h = 11;
+        }
+      }
+    }
+  }
+
+
+}
