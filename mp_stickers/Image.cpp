@@ -221,7 +221,7 @@ namespace cs225
       for(unsigned int y = 0; y < this->height(); y++)
       {
         HSLAPixel & pixel = this->getPixel(x,y);
-        pixel.h = (pixel.h + degrees);
+        pixel.h = ((int)pixel.h + (int)degrees) % 360;
       }
     }
   }
