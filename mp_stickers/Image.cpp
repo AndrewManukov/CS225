@@ -181,17 +181,15 @@ namespace cs225
   void Image::scale(unsigned w, unsigned h)
   {
     Image *image = new Image(*this);
-    unsigned int width = this->width();
-    unsigned int height = this->height();
-    width = width * w;
-    height = height * w;
+    double width = this->width();
+    double height = this->height();
     resize(w, h);
     for(unsigned int x = 0; x < this->width(); x++)
     {
       for(unsigned int y = 0; y < this->height(); y++)
       {
-        unsigned int x2 = x / width;
-        unsigned int y2 = y / height;
+        unsigned int x2 = width * x / w;
+        unsigned int y2 = height * y / h;
         HSLAPixel & pixel1 = this->getPixel(x,y);
         HSLAPixel & pixel2 = image->getPixel(x2,y2);
         pixel1 = pixel2;
@@ -221,7 +219,15 @@ namespace cs225
       for(unsigned int y = 0; y < this->height(); y++)
       {
         HSLAPixel & pixel = this->getPixel(x,y);
-        pixel.h = ((int)pixel.h + (int)degrees) % 360;
+        pixel.h += degrees;
+        while(pixel.h > 360)
+        {
+          pixel.h -= 360;
+        }
+        while(pixel.h < 0)
+        {
+          pixel.h += 360;
+        }
       }
     }
   }
