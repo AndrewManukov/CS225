@@ -178,25 +178,56 @@ namespace cs225
 
   }
 
-  void Image::scale(unsigned w, unsigned h)
+  void Image::scale(unsigned w, unsigned h) //FIX HEIGHT
   {
     Image *image = new Image(*this);
-    double width = this->width();
-    double height = this->height();
-    resize(w, h);
-    for(unsigned int x = 0; x < this->width(); x++)
+    double widthFactor = w / this->width();
+    double heightFactor = h / this->height();
+    double factor = 0;
+    if(widthFactor <= heightFactor)
     {
-      for(unsigned int y = 0; y < this->height(); y++)
+      factor = widthFactor;
+      unsigned int width = this->width();
+      unsigned int height = this->height();
+      width = width * factor;
+      height = height * factor;
+      resize(width, height);
+      for(unsigned int x = 0; x < this->width(); x++)
       {
-        unsigned int x2 = width * x / w;
-        unsigned int y2 = height * y / h;
-        HSLAPixel & pixel1 = this->getPixel(x,y);
-        HSLAPixel & pixel2 = image->getPixel(x2,y2);
-        pixel1 = pixel2;
+        for(unsigned int y = 0; y < this->height(); y++)
+        {
+          unsigned int x2 = x / factor;
+          unsigned int y2 = y / factor;
+          HSLAPixel & pixel1 = this->getPixel(x,y);
+          HSLAPixel & pixel2 = image->getPixel(x2,y2);
+          pixel1 = pixel2;
+        }
       }
-    }
-    delete image;
 
+      delete image;
+    }
+    else
+    {
+      factor = heightFactor;
+      unsigned int width = this->width();
+      unsigned int height = this->height();
+      width = width * factor;
+      height = height * factor;
+      resize(width, height);
+      for(unsigned int x = 0; x < this->width(); x++)
+      {
+        for(unsigned int y = 0; y < this->height(); y++)
+        {
+          unsigned int x2 = x / factor;
+          unsigned int y2 = y / factor;
+          HSLAPixel & pixel1 = this->getPixel(x,y);
+          HSLAPixel & pixel2 = image->getPixel(x2,y2);
+          pixel1 = pixel2;
+        }
+      }
+
+      delete image;
+    }
   }
 
 

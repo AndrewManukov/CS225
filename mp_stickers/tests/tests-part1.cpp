@@ -140,20 +140,11 @@ TEST_CASE("Image scale(0.5) scales pixel data in a reasonable way", "[weight=1][
   REQUIRE( result.getPixel(100, 20).h < 220 );
 }
 
-TEST_CASE("Image scale(180,90) scales pixel data in a reasonable way", "[weight=1][part=1]") {
+TEST_CASE("Image scale(10000,200) results in the correct width/height", "[weight=1][part=1]") {
   Image img = createRainbowImage();
 
   Image result = createRainbowImage();
-  result.scale(180,80);
+  result.scale(10000,200);
 
-  REQUIRE( result.getPixel(100, 20).h > 180 );
-}
-
-TEST_CASE("Image scale(720,10000) scales pixel data in a reasonable way", "[weight=1][part=1]") {
-  Image img = createRainbowImage();
-
-  Image result = createRainbowImage();
-  result.scale(720,10000);
-
-  REQUIRE( result.getPixel(100, 100).h >  );
+  REQUIRE( img.width() * 2 == result.width() );
 }

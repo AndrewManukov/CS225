@@ -1,5 +1,4 @@
 /*
-
 #include "../cs225/catch/catch.hpp"
 #include "../Image.h"
 #include "../StickerSheet.h"
