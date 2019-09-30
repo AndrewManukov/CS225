@@ -94,7 +94,7 @@ bool isBalanced(queue<char> input)
 }
 
 /**
- * Reverses even sized blocks of items in the queue. Blocks start at size
+ * groups even sized blocks of items in the queue. Blocks start at size
  * one and increase for each subsequent block.
  *
  * **Hint**: You'll want to make a local stack variable.
@@ -113,15 +113,18 @@ void scramble(queue<T>& q)
 {
     stack<T> s;
     queue<T> q2;
-    unsigned int reverse = 1;
+    unsigned int group = 1;
     while(!q.empty())
     {
-      if(reverse % 2 == 0)
+      if(group % 2 == 0)
       {
-        for(unsigned int i = 0; i < reverse; i++)
+        for(unsigned int i = 0; i < group; i++)
         {
-          s.push(q.front());
-          q.pop();
+          if(!q.empty())
+          {
+            s.push(q.front());
+            q.pop();
+          }
         }
         while(!s.empty())
         {
@@ -131,16 +134,19 @@ void scramble(queue<T>& q)
       }
       else
       {
-        for(unsigned int i = 0; i < reverse; i++)
+        for(unsigned int i = 0; i < group; i++)
         {
-          q.pop();
-          q2.push(q.front());
-
+          if(!q.empty())
+          {
+            q2.push(q.front());
+            q.pop();
+          }
         }
       }
-    reverse++;
+      group++;
     }
     q = q2;
+
     // Your code here
 }
 
