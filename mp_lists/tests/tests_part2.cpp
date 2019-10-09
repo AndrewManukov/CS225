@@ -121,6 +121,23 @@ TEST_CASE("List::sort simple #2", "[weight=2][part=2][valgrind]") {
 
 }
 
+TEST_CASE("List::sort simple #3", "[weight=2][part=2][valgrind]") {
+    List<std::string> list;
+
+    list.insertBack("c");
+    list.insertBack("b");
+    list.insertBack("a");
+    list.insertBack("d");
+
+    list.sort();
+
+    stringstream s;
+    list.print(s);
+
+    REQUIRE(s.str() == "< a b c d >");
+
+}
+
 TEST_CASE("List::sort #1", "[weight=5][part=2]") {
   PNG expected;  expected.readFromFile("tests/expected-sort_1.png");
 

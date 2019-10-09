@@ -138,4 +138,3 @@ int BinaryTree<T>::sumDistances() const
     // your code here
     return -1;
 }
-
