@@ -5,6 +5,8 @@
 
 #include "schashtable.h"
 
+using hashes::hash;
+
 template <class K, class V>
 SCHashTable<K, V>::SCHashTable(size_t tsize)
 {
@@ -50,10 +52,22 @@ template <class K, class V>
 void SCHashTable<K, V>::insert(K const& key, V const& value)
 {
 
+
     /**
      * @todo Implement this function.
      *
      */
+
+    elems++;
+
+    if(shouldResize())
+    {
+      resizeTable();
+    }
+
+    size_t hash_ = hash(key, size);
+    table[hash_].push_front(std::pair<K, V>(key, value));
+
 }
 
 template <class K, class V>
@@ -66,18 +80,40 @@ void SCHashTable<K, V>::remove(K const& key)
      * Please read the note in the lab spec about list iterators and the
      * erase() function on std::list!
      */
-    (void) key; // prevent warnings... When you implement this function, remove this line.
+    size_t hash_ = hash(key, size);
+    for(it = table[hash_].begin(); it != table[hash_].end(); it++)
+    {
+      if(it->first == key)
+      {
+        table[hash_].erase(it);
+        break;
+      }
+    }
+
+    //(void) key; // prevent warnings... When you implement this function, remove this line.
 }
 
 template <class K, class V>
 V SCHashTable<K, V>::find(K const& key) const
 {
+    typename std::list<std::pair<K, V>>::iterator it;
+
+    size_t hash_ = hash(key, size);
+    for(it = table[hash_].begin(); it != table[hash_].end(); it++)
+    {
+      if(it->first == key)
+      {
+        return it->second;
+      }
+    }
+
+    return V();
 
     /**
      * @todo: Implement this function.
      */
 
-    return V();
+
 }
 
 template <class K, class V>
@@ -134,4 +170,18 @@ void SCHashTable<K, V>::resizeTable()
      *
      * @hint Use findPrime()!
      */
+
+     size_t size_ = findPrime(2 * size);
+
+     std::list<std::pair<K, V>>* table_ = new std::list<std::pair<K, V>>[size_];
+
+     for(auto it = begin(); it != end(); it++)
+     {
+       size_t hash_ = hash(it->first, size_);
+       table_[hash_].push_front(std::pair<K, V>(it->first, it->second));
+     }
+
+     delete[] table;
+     table = table_;
+     size = size_;
 }

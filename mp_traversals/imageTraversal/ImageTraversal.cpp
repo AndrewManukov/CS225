@@ -8,6 +8,7 @@
 
 #include "ImageTraversal.h"
 
+using namespace std;
 /**
  * Calculates a metric for the difference between two pixels, used to
  * calculate if a pixel is within a tolerance.
@@ -33,18 +34,23 @@ double ImageTraversal::calculateDelta(const HSLAPixel & p1, const HSLAPixel & p2
  */
 ImageTraversal::Iterator::Iterator()
 {
-  traversal = NULL;
+  traversal_ = NULL;
+  //start = NULL;
+  //curr = NULL;
   /** @todo [Part 1] */
 }
 
+ImageTraversal::Iterator::Iterator(ImageTraversal * traversal) //Point curr, PNG png, double tolerance, Point start)
+{
+}
 /**
  * Iterator increment opreator.
  *
  * Advances the traversal of the image.
  */
-ImageTraversal::Iterator & ImageTraversal::Iterator::operator++() {
-  /** @todo [Part 1] */
-  return *this;
+ImageTraversal::Iterator & ImageTraversal::Iterator::operator++()
+{
+
 }
 
 /**
@@ -54,7 +60,7 @@ ImageTraversal::Iterator & ImageTraversal::Iterator::operator++() {
  */
 Point ImageTraversal::Iterator::operator*() {
   /** @todo [Part 1] */
-  return Point(0, 0);
+  return traversal_->peek();
 }
 
 /**
@@ -64,5 +70,5 @@ Point ImageTraversal::Iterator::operator*() {
  */
 bool ImageTraversal::Iterator::operator!=(const ImageTraversal::Iterator &other) {
   /** @todo [Part 1] */
-  return false;
+  return !(traversal_->empty());
 }

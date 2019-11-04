@@ -5,6 +5,9 @@
 
 #include "dhhashtable.h"
 
+using hashes::hash;
+using hashes::secondary_hash;
+
 template <class K, class V>
 DHHashTable<K, V>::DHHashTable(size_t tsize)
 {
@@ -72,6 +75,21 @@ void DHHashTable<K, V>::copy(const DHHashTable<K, V>& other)
 template <class K, class V>
 void DHHashTable<K, V>::insert(K const& key, V const& value)
 {
+    elems++;
+    size_t hash_ = hash(key, size);
+    size_t second_hash_ = secondary_hash(key, size);
+    while(should_probe[hash_])
+    {
+      hash_ = (hash_ + second_hash_) % size;
+    }
+
+    table[hash_] = new std::pair<K, V>(key, value);
+    should_probe[hash_] = true;
+
+    if(shouldResize())
+    {
+      resizeTable();
+    }
 
     /**
      * @todo Implement this function.
@@ -81,13 +99,20 @@ void DHHashTable<K, V>::insert(K const& key, V const& value)
      *  forget to mark the cell for probing with should_probe!
      */
 
-    (void) key;   // prevent warnings... When you implement this function, remove this line.
-    (void) value; // prevent warnings... When you implement this function, remove this line.
+    //(void) key;   // prevent warnings... When you implement this function, remove this line.
+    //(void) value; // prevent warnings... When you implement this function, remove this line.
 }
 
 template <class K, class V>
 void DHHashTable<K, V>::remove(K const& key)
 {
+    int key_ = findIndex(key);
+    if(key_ != -1)
+    {
+      elems--;
+      delete table[key_];
+      table[key_] = NULL;
+    }
     /**
      * @todo Implement this function
      */
@@ -96,10 +121,30 @@ void DHHashTable<K, V>::remove(K const& key)
 template <class K, class V>
 int DHHashTable<K, V>::findIndex(const K& key) const
 {
+
+    size_t hash_ = hash(key, size);
+    size_t second_hash_ = secondary_hash(key, size);
+    size_t begin_ = hash_;
+    while(should_probe[hash_])
+    {
+      if(table[hash_] != NULL)
+      {
+        if(table[hash_]->first == key)
+        {
+          return hash_;
+        }
+      }
+      hash_ = (hash_ + second_hash_) % size;
+      if(begin_ == hash_)
+      {
+        break;
+      }
+    }
+
+    return -1;
     /**
      * @todo Implement this function
      */
-    return -1;
 }
 
 template <class K, class V>
@@ -160,7 +205,7 @@ void DHHashTable<K, V>::resizeTable()
             size_t h = hashes::hash(table[slot]->first, newSize);
             size_t jump = hashes::secondary_hash(table[slot]->first, newSize);
             size_t i = 0;
-            size_t idx = h; 
+            size_t idx = h;
             while (temp[idx] != NULL)
             {
                 ++i;
