@@ -35,6 +35,7 @@ bool KDTree<Dim>::shouldReplace(const Point<Dim>& target,
     /**
      * @todo Implement this function!
      */
+
     double distanceCurr = distanceSqr(target, currentBest);
     double distancePotential = distanceSqr(target, potential);
 
@@ -46,7 +47,7 @@ bool KDTree<Dim>::shouldReplace(const Point<Dim>& target,
     {
       return true;
     }
-    return distancePotential < distanceCurr;
+    return potential < currentBest;
 
 }
 
