@@ -43,7 +43,7 @@ bool tree_equals_output(stringstream & s, string filename)
     return true;
 }
 
-void compareBinaryFiles( string yourFile, string ourFile ) 
+void compareBinaryFiles( string yourFile, string ourFile )
 {
     ifstream ourBinary( ourFile, ios::binary );
     stringstream ours;
@@ -76,7 +76,9 @@ TEST_CASE("KDTree::shouldReplace Tests", "[weight=1][part=1]") {
   Point<3> currentBest3(0, 2, 4);
   Point<3> possibleBest3(2, 4, 6);
 
-  REQUIRE( tree.shouldReplace(target, currentBest1, possibleBest1) == true );
+  //currbest1 = (1,3,2) possiblbest1 = 2,4,4
+
+  REQUIRE( tree.shouldReplace(target, currentBest1, possibleBest1) == true ); //this
   REQUIRE( tree.shouldReplace(target, currentBest2, possibleBest2) == false );
   REQUIRE( tree.shouldReplace(target, currentBest3, possibleBest3) == false );  // operator<
 }

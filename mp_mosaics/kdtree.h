@@ -106,7 +106,8 @@ class KDTree
     bool shouldReplace(const Point<Dim>& target, const Point<Dim>& currentBest,
                        const Point<Dim>& potential) const;
 
-    double distance(const Point<Dim>& first, const Point<Dim>& second) const
+    double distanceSqr(const Point<Dim>& first, const Point<Dim>& second) const;
+    double radius(const Point<Dim>& first, const Point<Dim>& second) const;
 
     /**
      * Constructs a KDTree from a vector of Points, each having dimension Dim.
@@ -152,7 +153,20 @@ class KDTree
      * @todo This function is required for MP 5.1.
      * @param newPoints The vector of points to build your KDTree off of.
      */
+
+    int partiton(vector<Point<Dim>> & newPoints, int left, int right, int dim, int index);
+
+    Point<Dim> & quickSelect(vector<Point<Dim>> & newPoints, int left, int right, int dim, int index);
+
+    KDTreeNode * build(vector<Point<Dim>> & newPoints, int left, int right, int dim);
+
     KDTree(const vector<Point<Dim>>& newPoints);
+
+    void copy_(KDTreeNode * subroot, KDTreeNode * other);
+
+    void destroy_(KDTreeNode * subroot);
+
+
 
 
     /**
@@ -234,6 +248,8 @@ class KDTree
      */
     Point<Dim> findNearestNeighbor(const Point<Dim>& query) const;
 
+
+    Point<Dim> findNearestNeighbor(KDTreeNode * subroot, const Point<Dim> & query, int dim) const;
     // functions used for grading:
 
     /**
