@@ -120,11 +120,6 @@ T heap<T, Compare>::pop()
     heapifyDown(root());
 
     return tmp;
-    /*std::swap(_elems[root()], _elems[_elems.size() - 1]);
-    _elems.pop_back();
-    heapifyDown(root());
-
-    return tmp; */
 }
 
 template <class T, class Compare>
