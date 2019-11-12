@@ -1,0 +1,1 @@
+Mark is trapped between the shadowy figure and the shut metal door. The figure is alerted by Mark's presence as Mark is trying his hardest to open the door. Emerging from the darkness, Lizard Mark Zuckerberg attacks young Mark and leaves him for dead. 

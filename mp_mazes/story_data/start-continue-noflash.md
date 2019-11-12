@@ -1,0 +1,1 @@
+Mark makes his way through the darkness.."Man, I really wish I had a flashlight" he thinks to himself. The hissing continues to grow louder as he makes his way to the barely visible outline of the shadowy figure. Mark trips over a shed skin left on the floor and the figure becomes alert. In less than a second, Mark is attacked by this unknown being and is left for dead.
