@@ -14,16 +14,16 @@
 
 using namespace std;
 
-static vector< unsigned int > fib_results = 
+static vector< unsigned int > fib_results =
 { 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584,
   4181, 6765, 10946, 17711, 28657, 46368, 75025, 121393, 196418, 317811 };
-                               
 
-static vector< string > words = 
+
+static vector< string > words =
 { "dog", "god", "good", "super", "cow", "powers", "skin", "kins" };
 
-static map< string, vector< string > > pronunciations = 
-                            { { "SCENT", { "DUMMY" } }, 
+static map< string, vector< string > > pronunciations =
+                            { { "SCENT", { "DUMMY" } },
                               { "CENT", { "DUMMY" } },
                               { "SENT", { "DUMMY" } },
                               { "DOG", { "DOGE" } }
@@ -83,7 +83,7 @@ TEST_CASE("test_memoized_fib", "[weight=10]")
         REQUIRE(memoized_fib(28) == fib_results[28]);
     }
 }
- 
+
 
 
 TEST_CASE("test_homophones", "[weight=10]")
